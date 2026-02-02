@@ -1,0 +1,207 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2339595736463553432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6465192857857322833}
+  - component: {fileID: 8060836549542336306}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6465192857857322833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2339595736463553432}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8060836549542336306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2339595736463553432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a3e9053ed62d346a0b38fafab667da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  BGTheme:
+    Guid:
+      Data1: 31186453
+      Data2: 1238960409
+      Data3: -1395486572
+      Data4: -2080674651
+    Path: event:/Theme
+  FootstepEvent:
+    Guid:
+      Data1: 1247877707
+      Data2: 1190967596
+      Data3: -445676615
+      Data4: 1488647567
+    Path: event:/Footstep2
+  ExorcistJump:
+    Guid:
+      Data1: 29622593
+      Data2: 1096085152
+      Data3: 493369240
+      Data4: -1668356142
+    Path: event:/PriestJump
+  DemonJump:
+    Guid:
+      Data1: -1552455951
+      Data2: 1248375498
+      Data3: 362535593
+      Data4: -773065959
+    Path: event:/DemonJump
+  DemonHit:
+    Guid:
+      Data1: -673119009
+      Data2: 1325770474
+      Data3: -934599238
+      Data4: -2032724352
+    Path: event:/DemonHit
+  ExorcistHit:
+    Guid:
+      Data1: 1107583808
+      Data2: 1134457563
+      Data3: 1392044161
+      Data4: -806149680
+    Path: event:/PriestHit
+  MGSound:
+    Guid:
+      Data1: -284730581
+      Data2: 1161424005
+      Data3: 81965189
+      Data4: 319448031
+    Path: event:/MGsound
+  SGSound:
+    Guid:
+      Data1: 1725717156
+      Data2: 1303342463
+      Data3: 962947465
+      Data4: -1269598095
+    Path: event:/SG sound
+  MGReload:
+    Guid:
+      Data1: -931466762
+      Data2: 1221759296
+      Data3: 651584131
+      Data4: -1068966857
+    Path: event:/MG Reload
+  SGReload:
+    Guid:
+      Data1: -679091180
+      Data2: 1148647363
+      Data3: -1864898933
+      Data4: 648923038
+    Path: event:/SG Reload
+  DemonBeam:
+    Guid:
+      Data1: -1860075616
+      Data2: 1333347301
+      Data3: 1321583006
+      Data4: -1147864856
+    Path: event:/Demon Beam Shot
+  ExorcistBeam:
+    Guid:
+      Data1: -1745138024
+      Data2: 1181321715
+      Data3: -866095221
+      Data4: -1174910079
+    Path: event:/Priest Beam Shot
+  ActionMusic:
+    Guid:
+      Data1: 974188482
+      Data2: 1185726189
+      Data3: -904234849
+      Data4: 378907078
+    Path: event:/ActionMusic
+  PuzzleMusic:
+    Guid:
+      Data1: 31186453
+      Data2: 1238960409
+      Data3: -1395486572
+      Data4: -2080674651
+    Path: event:/Theme
+  Batterycharge:
+    Guid:
+      Data1: -519833450
+      Data2: 1309855193
+      Data3: 1859238589
+      Data4: -1849289066
+    Path: event:/BatteryCharge
+  BatteryDrain:
+    Guid:
+      Data1: -1703083506
+      Data2: 1133058117
+      Data3: -1444222336
+      Data4: 262995030
+    Path: event:/BatteryDrain
+  BatteryFull:
+    Guid:
+      Data1: 1929602447
+      Data2: 1178464843
+      Data3: 125237141
+      Data4: 1000738609
+    Path: event:/BatteryFull
+  DoorOpen:
+    Guid:
+      Data1: -755607440
+      Data2: 1082709299
+      Data3: -1235552580
+      Data4: -2138342141
+    Path: event:/DoorOpen
+  DoorClose:
+    Guid:
+      Data1: 2018217319
+      Data2: 1245387259
+      Data3: -1071871334
+      Data4: 140248799
+    Path: event:/DoorClose
+  PlatformSlide:
+    Guid:
+      Data1: 938520028
+      Data2: 1328466460
+      Data3: -196188774
+      Data4: -1152200369
+    Path: event:/PlatformSlide
+  EtherealObjectAppear:
+    Guid:
+      Data1: 1474123775
+      Data2: 1165871415
+      Data3: -1925792864
+      Data4: 576940515
+    Path: event:/EtherealObjectAppear
+  EtherealObjectDisapear:
+    Guid:
+      Data1: -93311308
+      Data2: 1211241974
+      Data3: 969720214
+      Data4: -955190969
+    Path: event:/EtherealObjectDisapear
+  BarrelExplosion:
+    Guid:
+      Data1: -829517057
+      Data2: 1082265110
+      Data3: 1318774934
+      Data4: -1828061172
+    Path: event:/BarrelExplosion
