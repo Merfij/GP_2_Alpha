@@ -13,6 +13,9 @@ public class Shotgun : MonoBehaviour
 
     public GameObject pellet;
     public Transform bulletSpawn;
+    public cameraShake camShake;
+    public float shakeLength = 0.1f;
+    public float shakeMagnitude = 0.2f;
 
     public int currentAmmo;
     private bool isReloading = false;
@@ -68,9 +71,9 @@ public class Shotgun : MonoBehaviour
 
             bullet.AddForce(new Vector3(Random.Range(-spreadStrength, spreadStrength), Random.Range(-spreadStrength, spreadStrength), Random.Range(-spreadStrength, spreadStrength)), ForceMode.Impulse);
 
-            //add some randomized camera shake effect here
-
         }
+        //camera shake
+        StartCoroutine(camShake.Shake(shakeLength, shakeMagnitude));
     }
 
     IEnumerator Reload()

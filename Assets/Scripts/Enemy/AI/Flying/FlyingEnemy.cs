@@ -44,7 +44,7 @@ public class FlyingEnemy : MonoBehaviour, IDamagable, IAffectedByLaser
     [SerializeField] private Animator animator;
     public CapsuleCollider capsuleCollider;
     public SphereCollider damageCollider;
-    //private Rigidbody rb;
+    private Rigidbody rb;
 
     [Header("Health")]
     public float health = 100f;
@@ -64,6 +64,8 @@ public class FlyingEnemy : MonoBehaviour, IDamagable, IAffectedByLaser
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+
         target.Add(GameObject.FindGameObjectWithTag("Exorcist").transform);
         target.Add(GameObject.FindGameObjectWithTag("Demon").transform);
 
@@ -341,14 +343,9 @@ public class FlyingEnemy : MonoBehaviour, IDamagable, IAffectedByLaser
         //capsuleCollider.enabled = false;
         animator.enabled = false;
         enabled = false;
-        gameObject.AddComponent<Rigidbody>();
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null) 
-        {
-            rb.useGravity = true;
-            rb.AddForce(Vector3.down * 2f, ForceMode.Impulse);
-        }
-
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        rb.AddForce(Vector3.down * 2f, ForceMode.Impulse);
         // Optional: destroy after delay
         GetComponent<DeathNotifier>().NotifyDied();
         Destroy(gameObject, 1f);

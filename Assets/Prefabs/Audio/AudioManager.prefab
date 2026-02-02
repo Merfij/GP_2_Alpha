@@ -130,11 +130,11 @@ MonoBehaviour:
     Path: event:/Priest Beam Shot
   ActionMusic:
     Guid:
-      Data1: 974188482
-      Data2: 1185726189
-      Data3: -904234849
-      Data4: 378907078
-    Path: event:/ActionMusic
+      Data1: 31186453
+      Data2: 1238960409
+      Data3: -1395486572
+      Data4: -2080674651
+    Path: event:/Theme
   PuzzleMusic:
     Guid:
       Data1: 31186453
@@ -200,8 +200,22 @@ MonoBehaviour:
     Path: event:/EtherealObjectDisapear
   BarrelExplosion:
     Guid:
-      Data1: -829517057
-      Data2: 1082265110
-      Data3: 1318774934
-      Data4: -1828061172
+      Data1: -1967991336
+      Data2: 1182985476
+      Data3: 747753604
+      Data4: -181805214
     Path: event:/BarrelExplosion
+  PressureplatePress:
+    Guid:
+      Data1: 938520028
+      Data2: 1328466460
+      Data3: -196188774
+      Data4: -1152200369
+    Path: event:/PlatformSlide
+  PressureplateRelease:
+    Guid:
+      Data1: 938520028
+      Data2: 1328466460
+      Data3: -196188774
+      Data4: -1152200369
+    Path: event:/PlatformSlide

@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 8633515697608651877}
   - component: {fileID: 4531250365498195030}
   - component: {fileID: 8829333121499958157}
+  - component: {fileID: 4551557033460563927}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -756,6 +757,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
   nonRigidbodyVelocity: 0
   attenuationObject: {fileID: 0}
+--- !u!114 &4551557033460563927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539671332762776324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50703b83c2ae8f548b2f4c133965824a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::cameraShake
 --- !u!1 &6652354794679937586
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +857,9 @@ MonoBehaviour:
   spreadStrength: 31
   pellet: {fileID: 6154748653061412182, guid: 7a28e1cb46cdb1847b19940a925d4d92, type: 3}
   bulletSpawn: {fileID: 8688648151487801670}
+  camShake: {fileID: 4551557033460563927}
+  shakeLength: 0.15
+  shakeMagnitude: 0.31
   currentAmmo: 0
   cam: {fileID: 2733438869975458570}
 --- !u!114 &3183483750530648375

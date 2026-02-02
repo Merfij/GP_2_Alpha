@@ -955,10 +955,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1215191857115278038, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4539671332762776324, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652405091}
   m_SourcePrefab: {fileID: 100100000, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
 --- !u!114 &835029776 stripped
 MonoBehaviour:
@@ -2470,8 +2474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerJoinScript
   SpawnPoint1: {fileID: 2134993168}
   SpawnPoint2: {fileID: 1453382}
-  PlayerPrefab1: {fileID: 147225236314003004, guid: c9ac5454c6d457e4bbcc31f8b7946939, type: 3}
-  PlayerPrefab2: {fileID: 147225236314003004, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
+  PlayerPrefab1: {fileID: 147225236314003004, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
+  PlayerPrefab2: {fileID: 147225236314003004, guid: c9ac5454c6d457e4bbcc31f8b7946939, type: 3}
   health: {fileID: 0}
   mode: 1
 --- !u!114 &1617190559
@@ -2533,6 +2537,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1652405086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4539671332762776324, guid: 72a13fcf7e6b7ff499dd92d59682bf57, type: 3}
+  m_PrefabInstance: {fileID: 729665990}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652405091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652405086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50703b83c2ae8f548b2f4c133965824a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::cameraShake
 --- !u!1 &1767444541
 GameObject:
   m_ObjectHideFlags: 0

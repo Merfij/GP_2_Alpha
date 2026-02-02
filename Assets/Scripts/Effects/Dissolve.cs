@@ -10,12 +10,12 @@ public class Dissolve : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<EnemyBase>().onDeath += EnemyDissolve;
+        //GetComponent<EnemyBase>().onDeath += EnemyDissolve;
     }
 
     private void OnDisable()
     {
-        GetComponent<EnemyBase>().onDeath -= EnemyDissolve;
+        //GetComponent<EnemyBase>().onDeath -= EnemyDissolve;
     }
 
     void EnemyDissolve()

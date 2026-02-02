@@ -10,6 +10,7 @@ public class Minigun : MonoBehaviour
     [SerializeField] private float fireRate = 0.31f;
     public int magSize = 2;
     [SerializeField] private int spreadStrength = 10;
+    public cameraShake camShake;
 
     public GameObject pellet;
     public Transform bulletSpawn;
@@ -140,6 +141,9 @@ public class Minigun : MonoBehaviour
             Random.Range(-spreadStrength, spreadStrength),
             Random.Range(-spreadStrength, spreadStrength)
         ), ForceMode.Impulse);
+
+        //camera shake
+        StartCoroutine(camShake.Shake(fireRate, 0.15f));
     }
 
     IEnumerator Reload()
