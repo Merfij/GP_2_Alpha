@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum DirectorTriggerAction
 {
@@ -28,12 +29,32 @@ public class SpawnDirectorTrigger : MonoBehaviour
 
     private bool triggered;
 
+    [Header("Events")]
+    [Tooltip("Functions that can be called by any player")]
+    public UnityEvent TriggeredByAnyPlayer;
+    [Tooltip("Functions that need to be callde by both players")]
+    public UnityEvent TriggeredByBothPlayers;
+
+    public bool exorcistInside = false;
+    public bool demonInside = false;
+
+    private void Update()
+    {
+        if (demonInside && exorcistInside)
+        {
+            TriggeredByBothPlayers?.Invoke();
+            // Reset triggered to allow re-triggering if needed
+            //triggered = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (oneShot && triggered) return;
         if (!other.GetComponent<PlayerController>()) return;
 
         triggered = true;
+        TriggeredByAnyPlayer?.Invoke();
 
         if (director == null)
         {
@@ -58,6 +79,34 @@ public class SpawnDirectorTrigger : MonoBehaviour
             case DirectorTriggerAction.StopLooping:
                 director.StopLooping();
                 break;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // Check if both players are inside the trigger
+        if (other.CompareTag("Demon"))
+        {
+            demonInside = true;
+        }
+
+        if (other.CompareTag("Exorcist"))
+        {
+            exorcistInside = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // When they leave, flip the switch back
+        if (other.CompareTag("Demon"))
+        {
+            demonInside = false;
+        }
+
+        if (other.CompareTag("Exorcist"))
+        {
+            exorcistInside = false;
         }
     }
 }

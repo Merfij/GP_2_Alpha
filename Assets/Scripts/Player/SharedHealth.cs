@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 public class SharedHealth : MonoBehaviour, IDamagable
 {
     [SerializeField] private float maxHealth;
@@ -20,6 +21,11 @@ public class SharedHealth : MonoBehaviour, IDamagable
         {
             Debug.Log("Player Died");
             respawnScript.Respawn();
+            EnemyBase[] allEnemies = Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None);
+            foreach (EnemyBase enemy in allEnemies)
+            {
+                enemy.ForceResetState();
+            }
             ResetHeath();
         }
     }

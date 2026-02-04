@@ -5,33 +5,36 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     public float givenDamage;
-    public List<PlayerController> target;
 
-    public bool canAttack;
+    private bool canAttack;
 
     private void Start()
     {
-        target.Add(GameObject.FindGameObjectWithTag("Exorcist").GetComponent<PlayerController>());
-        target.Add(GameObject.FindGameObjectWithTag("Demon").GetComponent<PlayerController>());
 
         canAttack = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Exorcist") || other.CompareTag("Demon") && canAttack == true)
+        if (other.CompareTag("Exorcist") && canAttack == true || other.CompareTag("Demon") && canAttack == true)
         {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
-            health.TakeDamage(givenDamage);
-            Debug.Log("Damage given to player");
-            canAttack = false;
-            StartCoroutine(ResetAttack());
+            if (other.TryGetComponent<PlayerHealth>(out PlayerHealth health))
+            {
+                health.TakeDamage(givenDamage);
+                Debug.Log("Damage given to player");
+                canAttack = false;
+                StartCoroutine(ResetAttack());
+            }
+            else
+            {
+                Debug.Log("No PlayerHealth component found on the player.");
+            }
         }
     }
 
     IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         canAttack = true;
     }
 }

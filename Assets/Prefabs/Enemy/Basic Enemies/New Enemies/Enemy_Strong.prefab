@@ -655,8 +655,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   givenDamage: 2
-  target: []
-  canAttack: 0
 --- !u!1001 &5015400905968325068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -994,8 +992,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       propertyPath: m_Height
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_Acceleration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 7227166125913627808, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       propertyPath: m_Layer
@@ -1111,7 +1121,7 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 0
-  chaseSpeed: 4
+  chaseSpeed: 10
   attackRange: 3
   health: 120
   handCollider: {fileID: 6037188166596899509}

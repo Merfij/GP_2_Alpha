@@ -171,7 +171,7 @@ public class SpawnAgent : MonoBehaviour
         Vector3 spawnPos = transform.position + offset;
 
         GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
-
+        EnemyCountDebug.instance.IncrementEnemyCount();
         hasSpawnedAnything = true;
         aliveCount++;
 

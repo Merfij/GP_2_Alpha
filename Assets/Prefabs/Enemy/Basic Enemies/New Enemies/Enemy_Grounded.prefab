@@ -655,8 +655,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   givenDamage: 2
-  target: []
-  canAttack: 0
 --- !u!1001 &5015400905968325068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -982,8 +980,36 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       propertyPath: m_Height
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_Radius
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_Acceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7213380530372541516, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7227166125913627808, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       propertyPath: m_Layer
@@ -1072,10 +1098,10 @@ PrefabInstance:
       addedObject: {fileID: 758066540847292680}
     - targetCorrespondingSourceObject: {fileID: 58950863892605360, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9144390587281023107}
+      addedObject: {fileID: 9143473072672490848}
     - targetCorrespondingSourceObject: {fileID: 58950863892605360, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9143473072672490848}
+      addedObject: {fileID: 5473726203120584703}
   m_SourcePrefab: {fileID: 100100000, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}
 --- !u!1 &4993128534553622652 stripped
 GameObject:
@@ -1102,8 +1128,8 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 0
-  chaseSpeed: 10
-  attackRange: 3
+  chaseSpeed: 20
+  attackRange: 2
   health: 6
   handCollider: {fileID: 6037188166596899509}
   script: {fileID: 5160032582775514276}
@@ -1142,7 +1168,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &9144390587281023107
+--- !u!114 &9143473072672490848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993128534553622652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554db5ca8ba4213419dea215e46515aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dissolve
+  dissolve: {fileID: 2100000, guid: cc26d5682e40cf342b5a33b75cb83e6a, type: 2}
+--- !u!54 &5473726203120584703
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1169,19 +1208,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &9143473072672490848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4993128534553622652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 554db5ca8ba4213419dea215e46515aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Dissolve
-  dissolve: {fileID: 0}
 --- !u!4 &5620764318348812998 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 836191594044797706, guid: 32be7e630d7855d4fa481963b37159a5, type: 3}

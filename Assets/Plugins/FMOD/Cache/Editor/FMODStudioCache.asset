@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FmodBanks/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 639056434789915500
+  lastModified: 639057038645203820
   FileSizes: []
   Exists: 1
 --- !u!114 &-8117783738820700933
@@ -87,7 +87,7 @@ MonoBehaviour:
   Path: FmodBanks/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639056434789941084
+  lastModified: 639057038645208817
   FileSizes:
   - Name: 
     Value: 1906
@@ -463,7 +463,7 @@ MonoBehaviour:
   - {fileID: -9085562324974464318}
   StringsBanks:
   - {fileID: -6224814452630103345}
-  cacheTime: 639056434789951127
+  cacheTime: 639057038645213821
   cacheVersion: 131634
 --- !u!114 &507894933688860897
 MonoBehaviour:
@@ -778,6 +778,6 @@ MonoBehaviour:
   Path: FmodBanks/Desktop/ShutGun.bank
   Name: Desktop/ShutGun
   StudioPath: bank:/ShutGun
-  lastModified: 639056434789951127
+  lastModified: 639057038645213821
   FileSizes: []
   Exists: 1

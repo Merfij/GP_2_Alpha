@@ -11,10 +11,13 @@ public class EnemyFSM_Ethereal : EnemyBase
     [Header("Layers")]
     [SerializeField] private int canSeeLayer;
     [SerializeField] private int cantSeeLayer;
+    private int currentLayerCache = -1;
 
     private new void Update()
     {
         base.Update();
+
+        if (isDead) return;
         HandleStunTimer();
     }
     public override void TakeDamage(float damage)
@@ -33,15 +36,13 @@ public class EnemyFSM_Ethereal : EnemyBase
     {
         if (!canBeStunned || isDead) return;
 
-        if (agent != null && agent.enabled && agent.isOnNavMesh)
-        {
-            //agent.isStopped = true; // Should usually be true when stunned/affected
-            agent.isStopped = false;
-        }
+        //if (agent != null && agent.enabled && agent.isOnNavMesh)
+        //{
+        //    agent.isStopped = false;
+        //}
 
-        //agent.isStopped = false;
         isStunned = true;
-        if (stunTime == 0)
+        if (stunTime <= 0)
         {
             stunTime += minStunTime;
         }
@@ -66,31 +67,27 @@ public class EnemyFSM_Ethereal : EnemyBase
 
     private void HandleStunTimer()
     {
-        if (stunTime > 0)
-        {
-            SetLayerRecursively(this.gameObject, canSeeLayer);
-        }
-        else
-        {
-            SetLayerRecursively(this.gameObject, cantSeeLayer);
-        }
-
+        // The timer always ticks. It ticks UP if hit, DOWN if not hit.
         if (isStunned)
         {
-            stunTime += Time.deltaTime * 2;
-            if (stunTime >= maxStunTime)
-            {
-                stunTime = maxStunTime;
-            }
-            SetLayerRecursively(gameObject, canSeeLayer);
+            stunTime = Mathf.Clamp(stunTime + (Time.deltaTime * 2), 0, maxStunTime);
+
+            // IMPORTANT: Reset isStunned to false immediately. 
+            // If the laser hits again next frame, AffectedByLaser() will set it back to true.
+            // This creates the "toggle" you want.
+            isStunned = false;
         }
         else
         {
-            stunTime -= Time.deltaTime;
-            if (stunTime < 0)
-            {
-                stunTime = 0;
-            }
+            stunTime = Mathf.Max(0, stunTime - Time.deltaTime);
+        }
+
+        // Layer swapping logic stays the same
+        int targetLayer = stunTime > 0 ? canSeeLayer : cantSeeLayer;
+        if (currentLayerCache != targetLayer)
+        {
+            SetLayerRecursively(this.gameObject, targetLayer);
+            currentLayerCache = targetLayer;
         }
     }
 

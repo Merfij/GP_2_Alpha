@@ -27,8 +27,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
     protected EnemyState currentState;
     protected EnemyState stateBeforeStun;
 
-    protected PlayerController playerExorcist;
-    protected PlayerController playerDemon;
+    protected GameObject playerExorcist;
+    protected GameObject playerDemon;
     protected ExorcistAbilities exorcistLaser;
     protected DemonAbilities demonLaser;
 
@@ -36,45 +36,75 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
     protected bool canBeStunned = true;
     public GameObject healthPack;
     protected bool isDead = false;
+    private static readonly int AISTateHash = Animator.StringToHash("AIState");
+
+    [Header("Death")]
+    [Tooltip("If true, the enemy will self-destruct after a set time.")]
+    public bool shouldSelfDestruct = false;
+    public float selfDestructAfter = 10f;
+    [Tooltip("How long after death the enemy object is destroyed.")]
+    public float destroyAfter = 1f;
 
     protected virtual void Start()
     {
-        playerExorcist = GameObject.FindGameObjectWithTag("Exorcist").GetComponent<PlayerController>();
-        playerDemon = GameObject.FindGameObjectWithTag("Demon").GetComponent<PlayerController>();
-        exorcistLaser = playerExorcist.GetComponent<ExorcistAbilities>();
-        demonLaser = playerDemon.GetComponent<DemonAbilities>();
+        playerExorcist = GameObject.FindGameObjectWithTag("Exorcist");
+        playerDemon = GameObject.FindGameObjectWithTag("Demon");
+
+        if (playerExorcist != null)
+        {
+            exorcistLaser = playerExorcist.GetComponent<ExorcistAbilities>();
+            targets.Add(playerExorcist.transform);
+        }
+
+        if (playerDemon != null)
+        {
+            demonLaser = playerDemon.GetComponent<DemonAbilities>();
+            targets.Add(playerDemon.transform);
+        }
 
         animator = GetComponent<Animator>();
+        if(animator == null)
+            Debug.LogError("Animator component not found on " + gameObject.name);
         agent = GetComponent<NavMeshAgent>();
+        if(agent == null)
+            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
         capsuleCollider = GetComponent<CapsuleCollider>();
+        if(capsuleCollider == null)
+            Debug.LogError("CapsuleCollider component not found on " + gameObject.name);
 
         handCollider.enabled = false;
 
-        targets.Add(GameObject.FindGameObjectWithTag("Exorcist").transform);
-        targets.Add(GameObject.FindGameObjectWithTag("Demon").transform);
-
         agent.stoppingDistance = attackRange;
-        agent.autoBraking = true;
+        agent.isStopped = false;
 
         currentState = EnemyState.Chasing;
     }
 
     protected virtual void Update()
     {
+        if (shouldSelfDestruct)
+        {
+            selfDestructAfter -= Time.deltaTime;
+            if (selfDestructAfter <= 0f)
+            {
+                Die();
+            }
+        }
+
         switch (currentState)
         {
             case EnemyState.Chasing:
-                animator.SetInteger("AIState", 1);
+                animator.SetInteger(AISTateHash, 1);
                 UpdateChase();
                 break;
 
             case EnemyState.Attacking:
-                animator.SetInteger("AIState", 2);
+                animator.SetInteger(AISTateHash, 2);
                 UpdateAttack();
                 break;
 
             case EnemyState.Electrocuted:
-                animator.SetInteger("AIState", 3);
+                animator.SetInteger(AISTateHash, 3);
                 UpdateInBeam();
                 break;
         }
@@ -86,7 +116,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
         if (health <= 0)
             Die();
 
-        if (!isDead && !exorcistLaser.isLaserActive && !demonLaser.isLaserActive)
+        if (!isDead && currentState == EnemyState.Electrocuted && !exorcistLaser.isLaserActive && !demonLaser.isLaserActive)
         {
             ResumeEnemy();
         }
@@ -106,24 +136,48 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
 
     protected virtual void UpdateChase()
     {
+        agent.isStopped = false;
+        Debug.Log($"{gameObject.name} current speed: {agent.speed} | Wanted speed: {chaseSpeed}");
         Transform target = GetClosestTarget();
         if (target == null) return;
 
-        agent.isStopped = false;
-        agent.speed = Mathf.Min(chaseSpeed, Vector3.Distance(transform.position, target.position));
-        agent.SetDestination(target.position);
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-        if (Vector3.Distance(transform.position, target.position) <= attackRange)
+        float slowDownDistance = 1f;
+        float startSlowingDistance = attackRange + slowDownDistance;
+
+        if (distanceToTarget <= startSlowingDistance)
+        {
+            float t = (distanceToTarget - attackRange) / slowDownDistance;
+            float minSpeed = chaseSpeed * 0.3f;
+            agent.speed = Mathf.Lerp(minSpeed, chaseSpeed, t);
+        }
+        else
+        {
+            agent.speed = chaseSpeed;
+        }
+
+        agent.SetDestination(target.position);
+        Debug.Log($"Dist: {distanceToTarget} | Target: {attackRange}");
+        if (distanceToTarget < attackRange)
+        {
             currentState = EnemyState.Attacking;
+        }
     }
 
     protected virtual void UpdateAttack()
     {
-        agent.isStopped = false;
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
         agent.ResetPath();
 
         Transform target = GetClosestTarget();
-        if (target == null) return;
+        if (target == null)
+        {
+            currentState = EnemyState.Chasing; return;
+        }
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
         Vector3 dir = target.position - transform.position;
         dir.y = 0;
@@ -133,8 +187,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
             Time.deltaTime * 5f
         );
 
-        if (Vector3.Distance(transform.position, target.position) > attackRange + 0.5f)
-            currentState = EnemyState.Chasing;
+        if (distanceToTarget > attackRange + 0.5f)
+            currentState = EnemyState.Chasing; return;
     }
 
     protected Transform GetClosestTarget()
@@ -181,6 +235,8 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
     {
         if (!canBeStunned || isStunned) return;
 
+        DisaleEnemyCollider();
+
         isStunned = true;
         stateBeforeStun = currentState;
         currentState = EnemyState.Electrocuted;
@@ -207,6 +263,9 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
 
         if (isStunned) Instantiate(healthPack, this.transform.position, this.transform.rotation);
 
+        EnemyCountDebug.instance.DecrementEnemyCount();
+
+        DisaleEnemyCollider();
         this.GetComponent<DeathNotifier>().NotifyDied();
         this.capsuleCollider.enabled = false;
         this.agent.updatePosition = false;
@@ -215,7 +274,7 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
         //animator.enabled = false;
         this.animator.Play("Death");
         this.enabled = false;
-        Destroy(this.gameObject, 1f);
+        Destroy(this.gameObject, destroyAfter);
     }
 
     public void ActivateEnemyCollider()
@@ -226,5 +285,16 @@ public abstract class EnemyBase : MonoBehaviour, IDamagable, IAffectedByLaser
     public void DisaleEnemyCollider()
     {
         handCollider.enabled = false;
+    }
+
+    public void ForceResetState()
+    {
+        currentState = EnemyState.Chasing;
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            agent.isStopped = false;
+            // Optional: Clear the path so they don't slide toward the old position
+            agent.ResetPath();
+        }
     }
 }
